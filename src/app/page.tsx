@@ -33,7 +33,7 @@ const useCountUp = (end: number, duration: number = 2000) => {
 };
 
 
-// UI Components (Inspired by shadcn/ui for clean structure)
+// UI Components
 // -----------------------------------------------------------------------------
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -329,7 +329,7 @@ const ViewWork = () => (
                 <div className="space-y-2">
                     <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Explore Our Portfolio</h2>
                     <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                        Take a look at some of the stunning videos we've crafted for our clients.
+                        Take a look at some of the stunning videos we&rsquo;ve crafted for our clients.
                     </p>
                 </div>
                 <div className="mt-6">
@@ -494,6 +494,38 @@ const Experience = () => {
     );
 };
 
+const Clients = () => {
+    const clients = [
+        { name: 'Client A', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+A', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Client B', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+B', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Client C', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+C', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Client D', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+D', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Client E', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+E', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Client F', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+F', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+    ];
+
+    return (
+        <section id="clients" className="w-full py-12 md:py-24 text-white">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                    <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Trusted By The Best</h2>
+                    <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
+                        We&rsquo;ve had the privilege of working with a diverse range of creators and brands.
+                    </p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mt-12">
+                    {clients.map((client, index) => (
+                        <a key={index} href={client.instagram} target="_blank" rel="noopener noreferrer" className="client-card bg-neutral-900/50 p-6 rounded-lg flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-neutral-800/50 hover:shadow-orange-500/20">
+                            <img src={client.avatar} alt={`${client.name} avatar`} className="h-16 w-16 rounded-full mb-4 border-2 border-orange-500/50" />
+                            <p className="font-semibold text-white">{client.name}</p>
+                            <img src={client.logo} alt={`${client.name} logo`} className="h-8 w-auto mt-2" />
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
 
 const Testimonials = () => {
     const testimonials = [
@@ -564,7 +596,7 @@ const Contact = () => {
                 <div className="text-center">
                     <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Get In Touch</h2>
                     <p className="mt-4 max-w-2xl mx-auto text-neutral-300 md:text-xl/relaxed">
-                        Have a project in mind or just want to say hello? We'd love to hear from you.
+                        Have a project in mind or just want to say hello? We&rsquo;d love to hear from you.
                     </p>
                 </div>
                 <div className="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
@@ -615,12 +647,12 @@ const Footer = () => {
                     Ready to Start Your Next Project?
                 </h2>
                 <p className="mt-4 max-w-2xl mx-auto text-lg text-neutral-300">
-                    Let's collaborate to create something extraordinary.
+                    Let&rsquo;s collaborate to create something extraordinary.
                 </p>
                 <div className="mt-8">
                     <a href="#contact">
                         <Button size="lg" variant="default">
-                            Let's Talk
+                            Let&rsquo;s Talk
                         </Button>
                     </a>
                 </div>
@@ -702,6 +734,7 @@ export default function App() {
 
           body {
             cursor: none;
+            background-color: #000;
           }
           .glass-cursor {
             position: fixed;
@@ -789,16 +822,15 @@ export default function App() {
       </style>
       <Navbar isVisible={isNavbarVisible} />
       <main className="bg-black antialiased">
-        <div className="bg-black/50">
-            <Hero />
-            <AnimatedSection><Features /></AnimatedSection>
-            <AnimatedSection><ViewWork /></AnimatedSection>
-            <AnimatedSection><Pricing /></AnimatedSection>
-            <AnimatedSection><Experience /></AnimatedSection>
-            <AnimatedSection><Testimonials /></AnimatedSection>
-            <AnimatedSection><Contact /></AnimatedSection>
-            <Footer />
-        </div>
+        <Hero />
+        <AnimatedSection><Features /></AnimatedSection>
+        <AnimatedSection><ViewWork /></AnimatedSection>
+        <AnimatedSection><Pricing /></AnimatedSection>
+        <AnimatedSection><Experience /></AnimatedSection>
+        <AnimatedSection><Clients /></AnimatedSection>
+        <AnimatedSection><Testimonials /></AnimatedSection>
+        <AnimatedSection><Contact /></AnimatedSection>
+        <Footer />
       </main>
     </>
   );
