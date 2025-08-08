@@ -1,5 +1,6 @@
 "use client";
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Video, Film, Music, Zap, Star, CheckCircle, Globe, Briefcase, Clock, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
 
 // Helper for conditional class names
