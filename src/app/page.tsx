@@ -1,7 +1,6 @@
 "use client";
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Video, Film, Music, Zap, Star, CheckCircle, Globe, Briefcase, Clock, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
+import { Video, Film, Music, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
 
 // Helper for conditional class names
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
