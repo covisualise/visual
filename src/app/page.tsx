@@ -584,7 +584,7 @@ const TestimonialCard = ({ name, initial, quote }: { name: string, initial: stri
                 </div>
                 <p className="font-semibold text-white">{name}</p>
             </div>
-            <p className="text-neutral-300">"{quote}"</p>
+            <p className="text-neutral-300">&ldquo;{quote}&rdquo;</p>
         </CardContent>
     </Card>
 );
