@@ -272,28 +272,28 @@ const Hero = () => {
 };
 
 const Features = () => {
-  const features = [
+const features = [
     {
-      icon: <Video className="h-8 w-8 text-orange-500" />,
-      title: '4K & 8K Editing',
-      description: 'Crystal-clear, high-resolution editing for a stunning visual experience on any screen.',
+        icon: <Video className="h-8 w-8 text-orange-500" />,
+        title: '4K & 8K Editing',
+        description: '',
     },
     {
-      icon: <Film className="h-8 w-8 text-orange-500" />,
-      title: 'Cinematic Color Grading',
-      description: 'We set the mood and tone of your video with professional color correction and grading.',
+        icon: <Film className="h-8 w-8 text-orange-500" />,
+        title: 'Cinematic Color Grading',
+        description: 'We set the mood and tone of your video with professional color correction and grading.',
     },
     {
-      icon: <Music className="h-8 w-8 text-orange-500" />,
-      title: 'Web Development',
-      description: 'Immersive audio experiences with custom sound design, mixing, and mastering.',
+        icon: <Globe className="h-8 w-8 text-orange-500" />,
+        title: 'Web Development',
+        description: 'Custom websites and landing pages to showcase your videos and brand online.',
     },
     {
-      icon: <Zap className="h-8 w-8 text-orange-500" />,
-      title: 'Motion Graphics & VFX',
-      description: 'Engage your audience with custom motion graphics, titles, and subtle visual effects.',
+        icon: <Zap className="h-8 w-8 text-orange-500" />,
+        title: 'Motion Graphics & VFX',
+        description: 'Engage your audience with custom motion graphics, titles, and subtle visual effects.',
     },
-  ];
+];
 
   return (
     <section id="features" className="w-full py-12 md:py-24 lg:py-32 text-white">
@@ -350,16 +350,16 @@ const Pricing = () => {
     const plans = [
         {
             title: 'Starter',
-            price: '₹15,000',
+            price: '₹5,000',
             description: 'For short personal projects and social media content.',
             features: ['Up to 2 min video', '2-day turnaround', '2 rounds of revisions', '1080p Export','5 Videos'],
             popular: false,
         },
         {
             title: 'Pro',
-            price: '₹30,000',
+            price: '₹15,000',
             description: 'Perfect for creators, businesses, and short films.',
-            features: ['Up to 15 min video', '4-day turnaround', '3 rounds of revisions', '4K Export', 'Color Grading', '20 Videos'],
+            features: ['Up to 15 min video', '4-day turnaround', '3 rounds of revisions', '4K Export', 'Color Grading', '5 Videos'],
             popular: true,
         },
         {
@@ -617,7 +617,7 @@ const Contact = () => {
                             <Phone className="w-6 h-6 text-orange-500" />
                             <div>
                                 <h3 className="text-lg font-semibold text-white">Phone</h3>
-                                <p className="text-neutral-300">+91 8707690924</p>
+                                <p className="text-neutral-300">+91 9598822384</p>
                             </div>
                         </div>
                         <div className="flex space-x-4 pt-4">
@@ -649,7 +649,7 @@ const Footer = () => {
                     Let&rsquo;s collaborate to create something extraordinary.
                 </p>
                 <div className="mt-8">
-                    <a href="#contact">
+                    <a href="https://wa.me/+919598822384">
                         <Button size="lg" variant="default">
                             Let&rsquo;s Talk
                         </Button>
