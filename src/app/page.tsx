@@ -618,7 +618,7 @@ const Contact = () => {
                             <Phone className="w-6 h-6 text-orange-500" />
                             <div>
                                 <h3 className="text-lg font-semibold text-white">Phone</h3>
-                                <p className="text-neutral-300">+91 8707690924</p>
+                                <p className="text-neutral-300">+91 9598822384</p>
                             </div>
                         </div>
                         <div className="flex space-x-4 pt-4">
@@ -650,7 +650,7 @@ const Footer = () => {
                     Let&rsquo;s collaborate to create something extraordinary.
                 </p>
                 <div className="mt-8">
-                    <a href="#contact">
+                    <a href="https://wa.me/+919598822384">
                         <Button size="lg" variant="default">
                             Let&rsquo;s Talk
                         </Button>
