@@ -496,12 +496,12 @@ const Experience = () => {
 
 const Clients = () => {
     const clients = [
-        { name: 'Client A', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+A', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
-        { name: 'Client B', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+B', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
-        { name: 'Client C', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+C', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
-        { name: 'Client D', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+D', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
-        { name: 'Client E', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+E', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
-        { name: 'Client F', logo: 'https://placehold.co/100x40/0a0a0a/orange?text=Client+F', avatar: 'https://placehold.co/64x64/2d2d2d/ffffff?text=👤', instagram: '#' },
+        { name: 'Crypto Millionaire Rohit', description: 'Leading crypto influencer & investor.', instagram: 'https://www.instagram.com/crypto_millionaire_rohit?igsh=ZmJhNjF6eHA1eGsx' },
+        { name: 'Crypto Asad', description: 'Expert in blockchain education & analytics.', instagram: 'https://www.instagram.com/crypto.asad?igsh=MXJndjAwZzMzNGhkMg==' },
+        { name: 'Learn With Haripriyaa', description: 'Empowering learners through engaging content.', instagram: 'https://www.instagram.com/learnwithharipriyaa?igsh=a2lwbnJya2E1YzMy' },
+        { name: 'GoZero Official', description: 'Innovating in electric vehicle solutions.', instagram: 'https://www.instagram.com/gozero_official?igsh=MWlwcjIwM3docnVkMw==' },
+        { name: 'Cryptovelps', description: 'Providing valuable crypto market insights.', instagram: 'https://www.instagram.com/cryptovelps?igsh=MWdmbnByOThxeWZ0Mw==' },
+        { name: 'Nerd With A Bindi', description: 'Creative content and digital presence.', instagram: 'https://www.instagram.com/nerdwithabindi?igsh=MXZzcWQ5Y3ptcTg5NA==' },
     ];
 
     return (
@@ -513,12 +513,11 @@ const Clients = () => {
                         We&rsquo;ve had the privilege of working with a diverse range of creators and brands.
                     </p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mt-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                     {clients.map((client, index) => (
-                        <a key={index} href={client.instagram} target="_blank" rel="noopener noreferrer" className="client-card bg-neutral-900/50 p-6 rounded-lg flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-neutral-800/50 hover:shadow-orange-500/20">
-                            <img src={client.avatar} alt={`${client.name} avatar`} className="h-16 w-16 rounded-full mb-4 border-2 border-orange-500/50" />
-                            <p className="font-semibold text-white">{client.name}</p>
-                            <img src={client.logo} alt={`${client.name} logo`} className="h-8 w-auto mt-2" />
+                        <a key={index} href={client.instagram} target="_blank" rel="noopener noreferrer" className="client-card bg-neutral-900/50 p-6 rounded-lg flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-orange-500/10 hover:shadow-orange-500/20 hover:border-orange-500/30 border border-transparent hover:-translate-y-2">
+                            <span className="font-semibold text-white text-lg">{client.name}</span>
+                            <span className="text-neutral-400 text-sm mt-2">{client.description}</span>
                         </a>
                     ))}
                 </div>
@@ -618,7 +617,7 @@ const Contact = () => {
                             <Phone className="w-6 h-6 text-orange-500" />
                             <div>
                                 <h3 className="text-lg font-semibold text-white">Phone</h3>
-                                <p className="text-neutral-300">+91 9598822384</p>
+                                <p className="text-neutral-300">+91 8707690924</p>
                             </div>
                         </div>
                         <div className="flex space-x-4 pt-4">
@@ -650,7 +649,7 @@ const Footer = () => {
                     Let&rsquo;s collaborate to create something extraordinary.
                 </p>
                 <div className="mt-8">
-                    <a href="https://wa.me/+919598822384">
+                    <a href="#contact">
                         <Button size="lg" variant="default">
                             Let&rsquo;s Talk
                         </Button>
