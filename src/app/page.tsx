@@ -648,50 +648,96 @@ const TestimonialCard = ({ name, initial, quote }: { name: string, initial: stri
     </Card>
 );
 
+
+
 const Contact = () => {
-    return (
-        <section id="contact" className="w-full py-12 md:py-24 lg:py-32 text-white">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center">
-                    <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Get In Touch</h2>
-                    <p className="mt-4 max-w-2xl mx-auto text-neutral-300 md:text-xl/relaxed">
-                        Have a project in mind or just want to say hello? We&rsquo;d love to hear from you.
-                    </p>
-                </div>
-                <div className="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-                    <div className="flex flex-col space-y-4">
-                        <input type="text" placeholder="Your Name" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                        <input type="email" placeholder="Your Email" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                        <input type="number" placeholder="Your Phone Number" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-                        <textarea placeholder="Your Message" rows={5} className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
-                        <Button variant="default" size="lg">Send Message</Button>
-                    </div>
-                    <div className="flex flex-col justify-center space-y-6">
-                        <div className="flex items-center space-x-4">
-                            <Mail className="w-6 h-6 text-orange-500" />
-                            <div>
-                                <h3 className="text-lg font-semibold text-white">Email</h3>
-                                <a href="mailto:contact@cinecut.com" className="text-neutral-300 hover:text-orange-500">covisualise@gmail.com</a>
-                            </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                            <Phone className="w-6 h-6 text-orange-500" />
-                            <div>
-                                <h3 className="text-lg font-semibold text-white">Phone</h3>
-                                <p className="text-neutral-300">+91 9598822384</p>
-                            </div>
-                        </div>
-                        <div className="flex space-x-4 pt-4">
-                           <a href="https://wa.me/+919598822384" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
-                           <a href="https://www.instagram.com/visualise._co?igsh=azZzbXVrdWMxemJm" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><InstagramIcon className="w-8 h-8" /></a>
-                           <a href="https://t.me/Visualiseco" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><TelegramIcon className="w-8 h-8" /></a>
-                        </div>
-                    </div>
-                </div>
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    number: "",
+    message: ""
+  });
+
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbzm4-dpVIjzf6U94MA-uxJfFKamQCL5OERjMg-dReX039y1TAt2iHVCqLA_Ne69Cnl72Q/exec", {
+        method: "POST",
+        body: JSON.stringify(formData)
+      });
+
+      const result = await res.json();
+      if (result.status === "success") {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", number: "", message: "" });
+      } else {
+        setStatus("Failed to send. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Error sending message.");
+    }
+  };
+
+  return (
+    <section id="contact" className="w-full py-12 md:py-24 lg:py-32 text-white">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center">
+          <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Get In Touch</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-neutral-300 md:text-xl/relaxed">
+            Have a project in mind or just want to say hello? We&rsquo;d love to hear from you.
+          </p>
+        </div>
+        <div className="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+          <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+            <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange}
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+            <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange}
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+            <input type="number" name="number" placeholder="Your Phone Number" value={formData.number} onChange={handleChange}
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+            <textarea name="message" placeholder="Your Message" rows={5} value={formData.message} onChange={handleChange}
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+            <Button type="submit" variant="default" size="lg">Send Message</Button>
+            {status && <p className="text-sm text-neutral-400">{status}</p>}
+          </form>
+
+          <div className="flex flex-col justify-center space-y-6">
+            <div className="flex items-center space-x-4">
+              <Mail className="w-6 h-6 text-orange-500" />
+              <div>
+                <h3 className="text-lg font-semibold text-white">Email</h3>
+                <a href="mailto:covisualise@gmail.com" className="text-neutral-300 hover:text-orange-500">covisualise@gmail.com</a>
+              </div>
             </div>
-        </section>
-    );
+            <div className="flex items-center space-x-4">
+              <Phone className="w-6 h-6 text-orange-500" />
+              <div>
+                <h3 className="text-lg font-semibold text-white">Phone</h3>
+                <p className="text-neutral-300">+91 9598822384</p>
+              </div>
+            </div>
+            <div className="flex space-x-4 pt-4">
+              <a href="https://wa.me/+919598822384" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
+              <a href="https://www.instagram.com/visualise._co?igsh=azZzbXVrdWMxemJm" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><InstagramIcon className="w-8 h-8" /></a>
+              <a href="https://t.me/Visualiseco" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><TelegramIcon className="w-8 h-8" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
+
+
 
 const Footer = () => {
     const navLinks = [
