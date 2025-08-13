@@ -334,7 +334,7 @@ const ViewWork = () => (
                 </div>
                 <div className="mt-6">
                     {/* IMPORTANT: Replace '#' with your actual Google Drive link */}
-                    <a href="https://drive.google.com/drive/folders/1N9dABQhRzAaGA3oSDS-PmFL9oMqVWDLW" target="_blank" rel="noopener noreferrer">
+                    <a href="https://drive.google.com/drive/folders/1mHMJgOYCdEstCWCWiDy_7bdRpbzBx9xo?usp=sharing" target="_blank" rel="noopener noreferrer">
                         <Button size="lg" variant="default">
                             <FolderOpen className="mr-2 h-5 w-5" />
                             View on Google Drive
@@ -464,8 +464,8 @@ const Experience = () => {
 
     const stats = [
         { icon: <Globe className="w-8 h-8 text-orange-400" />, value: 150, label: "Clients Worldwide" },
-        { icon: <Briefcase className="w-8 h-8 text-orange-400" />, value: 300, label: "Projects Completed" },
-        { icon: <Award className="w-8 h-8 text-orange-400" />, value: 5, label: "Years of Experience" },
+        { icon: <Briefcase className="w-8 h-8 text-orange-400" />, value: 2000, label: "Projects Completed" },
+        { icon: <Award className="w-8 h-8 text-orange-400" />, value: 3, label: "Years of Experience" },
     ];
 
     return (
@@ -494,46 +494,106 @@ const Experience = () => {
     );
 };
 
-const Clients = () => {
-    const clients = [
-        { name: 'Crypto Millionaire Rohit', description: 'Leading crypto influencer & investor.', instagram: 'https://www.instagram.com/crypto_millionaire_rohit?igsh=ZmJhNjF6eHA1eGsx' },
-        { name: 'Crypto Asad', description: 'Expert in blockchain education & analytics.', instagram: 'https://www.instagram.com/crypto.asad?igsh=MXJndjAwZzMzNGhkMg==' },
-        { name: 'Learn With Haripriyaa', description: 'Empowering learners through engaging content.', instagram: 'https://www.instagram.com/learnwithharipriyaa?igsh=a2lwbnJya2E1YzMy' },
-        { name: 'GoZero Official', description: 'Innovating in electric vehicle solutions.', instagram: 'https://www.instagram.com/gozero_official?igsh=MWlwcjIwM3docnVkMw==' },
-        { name: 'Cryptovelps', description: 'Providing valuable crypto market insights.', instagram: 'https://www.instagram.com/cryptovelps?igsh=MWdmbnByOThxeWZ0Mw==' },
-        { name: 'Nerd With A Bindi', description: 'Creative content and digital presence.', instagram: 'https://www.instagram.com/nerdwithabindi?igsh=MXZzcWQ5Y3ptcTg5NA==' },
-    ];
+import { motion } from "framer-motion";
 
-    return (
-        <section id="clients" className="w-full py-12 md:py-24 text-white">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                    <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Trusted By The Best</h2>
-                    <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
-                        We&rsquo;ve had the privilege of working with a diverse range of creators and brands.
-                    </p>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-                    {clients.map((client, index) => (
-                        <a key={index} href={client.instagram} target="_blank" rel="noopener noreferrer" className="client-card bg-neutral-900/50 p-6 rounded-lg flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-orange-500/10 hover:shadow-orange-500/20 hover:border-orange-500/30 border border-transparent hover:-translate-y-2">
-                            <span className="font-semibold text-white text-lg">{client.name}</span>
-                            <span className="text-neutral-400 text-sm mt-2">{client.description}</span>
-                        </a>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+const Clients = () => {
+  const clients = [
+    { name: 'Crypto Millionaire Rohit', description: 'Leading crypto influencer & investor.', instagram: 'https://www.instagram.com/crypto_millionaire_rohit?igsh=ZmJhNjF6eHA1eGsx' },
+    { name: 'Crypto Asad', description: 'Blockchain educator & analytics expert.', instagram: 'https://www.instagram.com/crypto.asad?igsh=MXJndjAwZzMzNGhkMg==' },
+    { name: 'Learn With Haripriyaa', description: 'Empowering learners with engaging educational content.', instagram: 'https://www.instagram.com/learnwithharipriyaa?igsh=a2lwbnJya2E1YzMy' },
+    { name: 'GoZero Official', description: 'Pioneers in electric vehicle innovation.', instagram: 'https://www.instagram.com/gozero_official?igsh=MWlwcjIwM3docnVkMw==' },
+    { name: 'Cryptovelps', description: 'Delivering valuable crypto market insights.', instagram: 'https://www.instagram.com/cryptovelps?igsh=MWdmbnByOThxeWZ0Mw==' },
+    { name: 'Nerd With A Bindi', description: 'Unique digital creator and storyteller.', instagram: 'https://www.instagram.com/nerdwithabindi?igsh=MXZzcWQ5Y3ptcTg5NA==' },
+    { name: 'Startup Decoding', description: 'Demystifying the startup ecosystem.', instagram: 'https://www.instagram.com/startup.decoding?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+    { name: 'Adore Skin Clinic', description: 'Advanced skincare and wellness experts.', instagram: 'https://www.instagram.com/adoreskinclinic?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+    { name: 'Zoomer Health', description: 'Innovative health and wellness solutions.', instagram: 'https://www.instagram.com/zoomerhealth?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+    { name: 'Indian Stories', description: 'Celebrating Indian culture and stories.', instagram: 'https://www.instagram.com/indianstories.in?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+    { name: 'The Unconventional Ca', description: 'Creative finance and business content.', instagram: 'https://www.instagram.com/the_unconventional_ca?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' },
+  ];
+
+  return (
+    <section id="clients" className="w-full py-16 text-white bg-gradient-to-b from-black via-neutral-950 to-black">
+      <div className="container mx-auto px-4 md:px-6">
+        {/* Heading */}
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="font-heading text-3xl font-bold tracking-tight sm:text-5xl"
+          >
+            Trusted By The Best
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="max-w-[900px] text-neutral-300 md:text-xl"
+          >
+            We’ve had the privilege of working with a diverse range of creators and brands.
+          </motion.p>
+        </div>
+
+        {/* Client Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-14">
+          {clients.map((client, index) => (
+            <motion.a
+              key={index}
+              href={client.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-neutral-900/50 backdrop-blur-md p-6 rounded-xl flex flex-col items-center text-center border border-neutral-800 transition-all duration-300 hover:bg-orange-500/10 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/20"
+            >
+              <span className="font-semibold text-lg text-white">{client.name}</span>
+              <span className="text-neutral-400 text-sm mt-2">{client.description}</span>
+              <span className="mt-4 text-orange-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                View Profile →
+              </span>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
+
+
+
 
 const Testimonials = () => {
     const testimonials = [
-        { name: 'Alex Johnson', initial: 'AJ', quote: "The final cut was beyond my expectations. The color grading gave my film the exact mood I was looking for. Truly cinematic!" },
-        { name: 'Samantha Bee', initial: 'SB', quote: "Incredible turnaround time and the quality was top-notch. They transformed my raw footage into a compelling story." },
-        { name: 'Michael Chen', initial: 'MC', quote: "The motion graphics were sleek and professional. It added a layer of polish that took my corporate video to the next level." },
-        { name: 'Priya Patel', initial: 'PP', quote: "I was blown away by the sound design. It completely immersed me in the film. I'll definitely be coming back for future projects." },
-        { name: 'David Rodriguez', initial: 'DR', quote: "A seamless process from start to finish. Communication was excellent, and they were very receptive to my feedback." },
-        { name: 'Emily White', initial: 'EW', quote: "They handled my 8K footage flawlessly. The final export was crisp, clean, and absolutely stunning on a big screen." },
+        {
+            name: 'Crypto Millionaire Rohit',
+            initial: 'CR',
+            quote: "They brought my crypto documentary to life with stunning edits and cinematic transitions. The visuals kept my audience hooked till the end!"
+        },
+        {
+            name: 'Crypto Asad',
+            initial: 'CA',
+            quote: "From raw blockchain event footage to a professional highlight reel — they nailed the timing, effects, and storytelling perfectly."
+        },
+        {
+            name: 'Learn With Haripriyaa',
+            initial: 'LH',
+            quote: "My educational videos got a complete facelift! Clean cuts, engaging motion graphics, and perfect pacing for my learners."
+        },
+        {
+            name: 'GoZero Official',
+            initial: 'GO',
+            quote: "They made our EV launch video look like a high-budget ad. Crisp visuals, smooth animations, and top-notch editing!"
+        },
+        {
+            name: 'Cryptovelps',
+            initial: 'CV',
+            quote: "The market analysis explainer videos looked incredibly sleek after their edits — sharp infographics and seamless transitions."
+        },
+        {
+            name: 'Nerd With A Bindi',
+            initial: 'NB',
+            quote: "Loved how they matched the editing style to my quirky, creative brand. The final cut felt 100% ‘me’."
+        },
     ];
 
     const firstColumn = testimonials.slice(0, 3);
@@ -555,7 +615,7 @@ const Testimonials = () => {
                             {firstColumn.map((item, index) => (
                                 <TestimonialCard key={index} {...item} />
                             ))}
-                             {firstColumn.map((item, index) => (
+                            {firstColumn.map((item, index) => (
                                 <TestimonialCard key={`dup-1-${index}`} {...item} aria-hidden="true" />
                             ))}
                         </div>
@@ -575,7 +635,7 @@ const Testimonials = () => {
 };
 
 const TestimonialCard = ({ name, initial, quote }: { name: string, initial: string, quote: string }) => (
-    <Card className="bg-neutral-900 border-neutral-800 p-6">
+    <Card className="bg-neutral-900 border-neutral-800 p-6 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300">
         <CardContent className="p-0">
             <div className="flex items-center mb-4">
                 <div className="w-12 h-12 rounded-full bg-orange-900/50 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold mr-4">
@@ -602,6 +662,7 @@ const Contact = () => {
                     <div className="flex flex-col space-y-4">
                         <input type="text" placeholder="Your Name" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         <input type="email" placeholder="Your Email" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        <input type="number" placeholder="Your Phone Number" className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         <textarea placeholder="Your Message" rows={5} className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
                         <Button variant="default" size="lg">Send Message</Button>
                     </div>
