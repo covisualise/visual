@@ -659,6 +659,7 @@ const Contact = () => {
   });
 
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submit state
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -666,6 +667,11 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Prevent multiple submissions
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     setStatus("Sending...");
 
     try {
@@ -684,6 +690,8 @@ const Contact = () => {
     } catch (err) {
       console.error(err);
       setStatus("Error sending message.");
+    } finally {
+      setIsSubmitting(false); // Re-enable button after request finishes
     }
   };
 
@@ -698,15 +706,50 @@ const Contact = () => {
         </div>
         <div className="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-            <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange}
-              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-            <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange}
-              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-            <input type="number" name="number" placeholder="Your Phone Number" value={formData.number} onChange={handleChange}
-              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-            <textarea name="message" placeholder="Your Message" rows={5} value={formData.message} onChange={handleChange}
-              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
-            <Button type="submit" variant="default" size="lg">Send Message</Button>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            <input
+              type="number"
+              name="number"
+              placeholder="Your Phone Number"
+              value={formData.number}
+              onChange={handleChange}
+              required
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              rows={5}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              className="bg-neutral-900 border border-neutral-800 rounded-md px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            ></textarea>
+            <Button
+              type="submit"
+              variant="default"
+              size="lg"
+              disabled={isSubmitting} // Disable button while sending
+            >
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </Button>
             {status && <p className="text-sm text-neutral-400">{status}</p>}
           </form>
 
