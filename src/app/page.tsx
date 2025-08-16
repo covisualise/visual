@@ -779,6 +779,25 @@ const Contact = () => {
     </section>
   );
 };
+const GetHired = () => (
+    <section id="get-hired" className="w-full py-12 md:py-24 text-white">
+        <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Be a Part of Us</h2>
+                <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
+                    We are always looking for talented individuals to join our team. If you are passionate about video editing and storytelling, we would love to hear from you.
+                </p>
+                <div className="mt-6">
+                    <a href="https://your-google-form-link-here" target="_blank" rel="noopener noreferrer">
+                        <Button size="lg" variant="default">
+                            Click Here
+                        </Button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+);
 
 
 
@@ -830,7 +849,7 @@ const Footer = () => {
 
             <div className="bg-black py-4">
                 <p className="text-center text-sm text-neutral-500">
-                    &copy; {new Date().getFullYear()} CineCut Studios. All Rights Reserved.
+                    &copy; {new Date().getFullYear()} Visualise.Co. All Rights Reserved.
                 </p>
             </div>
         </footer>
@@ -881,24 +900,6 @@ export default function App() {
             font-family: 'Exo 2', sans-serif;
           }
 
-          body {
-            cursor: none;
-            background-color: #000;
-          }
-          .glass-cursor {
-            position: fixed;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease-out;
-          }
           @keyframes marquee-up {
             from { transform: translateY(0); }
             to { transform: translateY(-50%); }
@@ -979,6 +980,7 @@ export default function App() {
         <AnimatedSection><Clients /></AnimatedSection>
         <AnimatedSection><Testimonials /></AnimatedSection>
         <AnimatedSection><Contact /></AnimatedSection>
+        <AnimatedSection><GetHired /></AnimatedSection>
         <Footer />
       </main>
     </>
