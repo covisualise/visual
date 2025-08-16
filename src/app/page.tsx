@@ -788,7 +788,7 @@ const GetHired = () => (
                     We are always looking for talented individuals to join our team. If you are passionate about video editing and storytelling, we would love to hear from you.
                 </p>
                 <div className="mt-6">
-                    <a href="https://your-google-form-link-here" target="_blank" rel="noopener noreferrer">
+                    <a href="https://forms.gle/UbHGmjNL887QSCaD9" target="_blank" rel="noopener noreferrer">
                         <Button size="lg" variant="default">
                             Click Here
                         </Button>
