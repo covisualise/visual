@@ -1,6 +1,8 @@
 "use client";
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import { Video, Film, Music, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
+import { Video, Film, Music, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone, Volume2, VolumeX } from 'lucide-react';
+import { motion } from "framer-motion";
+
 
 // Helper for conditional class names
 const cn = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
@@ -271,12 +273,106 @@ const Hero = () => {
     );
 };
 
+// --- UPDATED VideoShowcase ---
+// Now accepts an array of video objects
+interface VideoInfo {
+    id: string;
+    type: 'short' | 'standard';
+}
+
+const VideoShowcase = ({ videos, onVideoClick }: { videos: VideoInfo[], onVideoClick: (video: VideoInfo) => void }) => {
+    
+    // Duplicate the list for a smooth infinite scroll
+    const duplicatedVideos = [...videos, ...videos];
+
+    return (
+        <section id="video-showcase" className="w-full py-12 md:py-24 text-white">
+            <div className="container mx-auto flex flex-col items-center justify-center space-y-4 text-center px-4 md:px-6 mb-12">
+                <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Featured Reels</h2>
+                <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
+                    Here's a glimpse of the engaging content we produce.
+                </p>
+            </div>
+            <div className="w-full overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+                <div className="flex animate-marquee-horizontal">
+                    {duplicatedVideos.map((video, index) => (
+                        <button
+                            key={index}
+                            className="flex-shrink-0 w-64 mx-4 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-xl"
+                            onClick={() => onVideoClick(video)}
+                        >
+                            <div className="rounded-xl overflow-hidden border-2 border-neutral-800 shadow-lg aspect-[9/16] pointer-events-none">
+                                {/* Use YouTube's thumbnail image URL from video.id */}
+                                <img
+                                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                                    alt="Video Thumbnail"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </button>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+};
+
+// --- UPDATED VideoModal ---
+// Now accepts a video object and conditionally changes aspect ratio
+const VideoModal = ({ videoInfo, onClose }: { videoInfo: VideoInfo | null, onClose: () => void }) => {
+    
+    if (!videoInfo) {
+        return null;
+    }
+
+    // YouTube embed URL with autoplay and related videos disabled
+    const embedUrl = `https://www.youtube.com/embed/${videoInfo.id}?autoplay=1&rel=0`;
+    
+    // Check the type to decide the format
+    const isShort = videoInfo.type === 'short';
+
+    return (
+        <div 
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={onClose} // Click background to close
+        >
+            <div 
+                className={cn(
+                    "relative bg-black rounded-lg overflow-hidden w-full shadow-2xl shadow-orange-500/20",
+                    // CONDITIONAL STYLES:
+                    isShort ? "max-w-[320px] aspect-[9/16]" : "max-w-lg aspect-video"
+                )}
+                onClick={(e) => e.stopPropagation()} // Prevent click inside from closing
+            >
+                {/* Close Button */}
+                <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="absolute -top-10 -right-2 z-10 text-white bg-black/30 hover:bg-black/60"
+                    onClick={onClose}
+                >
+                    <X className="h-5 w-5" />
+                </Button>
+
+                <iframe
+                    src={embedUrl}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                ></iframe>
+            </div>
+        </div>
+    );
+};
+
+
 const Features = () => {
 const features = [
     {
         icon: <Video className="h-8 w-8 text-orange-500" />,
         title: '4K & 8K Editing',
-        description: '',
+        description: 'We handle high-resolution footage to deliver stunning clarity and detail in your videos.',
     },
     {
         icon: <Film className="h-8 w-8 text-orange-500" />,
@@ -494,8 +590,6 @@ const Experience = () => {
     );
 };
 
-import { motion } from "framer-motion";
-
 const Clients = () => {
   const clients = [
     { name: 'Crypto Millionaire Rohit', description: 'Leading crypto influencer & investor.', instagram: 'https://www.instagram.com/crypto_millionaire_rohit?igsh=ZmJhNjF6eHA1eGsx' },
@@ -558,9 +652,6 @@ const Clients = () => {
     </section>
   );
 };
-
-
-
 
 const Testimonials = () => {
     const testimonials = [
@@ -647,8 +738,6 @@ const TestimonialCard = ({ name, initial, quote }: { name: string, initial: stri
         </CardContent>
     </Card>
 );
-
-
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -769,7 +858,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex space-x-4 pt-4">
-              <a href="https://wa.me/+919598822384" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
+              <a href="https://wa.me/+917905206328" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
               <a href="https://www.instagram.com/visualise._co?igsh=azZzbXVrdWMxemJm" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><InstagramIcon className="w-8 h-8" /></a>
               <a href="https://t.me/Visualiseco" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><TelegramIcon className="w-8 h-8" /></a>
             </div>
@@ -779,6 +868,7 @@ const Contact = () => {
     </section>
   );
 };
+
 const GetHired = () => (
     <section id="get-hired" className="w-full py-12 md:py-24 text-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -798,8 +888,6 @@ const GetHired = () => (
         </div>
     </section>
 );
-
-
 
 const Footer = () => {
     const navLinks = [
@@ -863,6 +951,28 @@ const Footer = () => {
 export default function App() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
+  
+  // --- UPDATED: State now holds the full video object ---
+  const [modalVideoInfo, setModalVideoInfo] = useState<VideoInfo | null>(null);
+
+  // --- THIS IS THE UPDATED PART ---
+  // I've used your links and added the 'type' to each one.
+  const featuredVideos: VideoInfo[] = [
+    { id: "BEx5gHCM6kU", type: "short" },
+    { id: "eiuRvVMz2bU", type: "short" },
+    { id: "jW9od7_RrYI", type: "short" },
+    { id: "mAVuitu1r2o", type: "short" },
+    { id: "Nbsz-iz4org", type: "short" },
+    { id: "6hyumKPuXe8", type: "standard" } // This is your 16:9 video
+  ];
+
+  const handleVideoClick = (video: VideoInfo) => {
+    setModalVideoInfo(video);
+  };
+
+  const handleCloseModal = () => {
+    setModalVideoInfo(null);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -914,6 +1024,16 @@ export default function App() {
           .animate-marquee-down {
             animation: marquee-down 30s linear infinite;
           }
+          
+          @keyframes marquee-horizontal {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+          .animate-marquee-horizontal {
+            animation: marquee-horizontal 40s linear infinite;
+          }
+
+
           @keyframes slide-in-up {
             from {
               transform: translateY(30px);
@@ -973,6 +1093,12 @@ export default function App() {
       <Navbar isVisible={isNavbarVisible} />
       <main className="bg-black antialiased">
         <Hero />
+        <AnimatedSection>
+            <VideoShowcase 
+                videos={featuredVideos} 
+                onVideoClick={handleVideoClick} 
+            />
+        </AnimatedSection>
         <AnimatedSection><Features /></AnimatedSection>
         <AnimatedSection><ViewWork /></AnimatedSection>
         <AnimatedSection><Pricing /></AnimatedSection>
@@ -983,6 +1109,8 @@ export default function App() {
         <AnimatedSection><GetHired /></AnimatedSection>
         <Footer />
       </main>
+
+      <VideoModal videoInfo={modalVideoInfo} onClose={handleCloseModal} />
     </>
   );
 }
