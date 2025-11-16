@@ -1,6 +1,9 @@
 "use client";
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import { Video, Film, Music, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone, Volume2, VolumeX } from 'lucide-react';
+// NEW: Import Image from next/image
+import Image from 'next/image';
+// UPDATED: Removed unused 'Music', 'Volume2', and 'VolumeX'
+import { Video, Film, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
 import { motion } from "framer-motion";
 
 
@@ -274,7 +277,6 @@ const Hero = () => {
 };
 
 // --- UPDATED VideoShowcase ---
-// Now accepts an array of video objects
 interface VideoInfo {
     id: string;
     type: 'short' | 'standard';
@@ -282,15 +284,15 @@ interface VideoInfo {
 
 const VideoShowcase = ({ videos, onVideoClick }: { videos: VideoInfo[], onVideoClick: (video: VideoInfo) => void }) => {
     
-    // Duplicate the list for a smooth infinite scroll
     const duplicatedVideos = [...videos, ...videos];
 
     return (
         <section id="video-showcase" className="w-full py-12 md:py-24 text-white">
             <div className="container mx-auto flex flex-col items-center justify-center space-y-4 text-center px-4 md:px-6 mb-12">
                 <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Featured Reels</h2>
+                {/* FIXED: Replaced ' with &apos; */}
                 <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
-                    Here's a glimpse of the engaging content we produce.
+                    Here&apos;s a glimpse of the engaging content we produce.
                 </p>
             </div>
             <div className="w-full overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
@@ -301,11 +303,13 @@ const VideoShowcase = ({ videos, onVideoClick }: { videos: VideoInfo[], onVideoC
                             className="flex-shrink-0 w-64 mx-4 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-xl"
                             onClick={() => onVideoClick(video)}
                         >
-                            <div className="rounded-xl overflow-hidden border-2 border-neutral-800 shadow-lg aspect-[9/16] pointer-events-none">
-                                {/* Use YouTube's thumbnail image URL from video.id */}
-                                <img
+                            <div className="relative rounded-xl overflow-hidden border-2 border-neutral-800 shadow-lg aspect-[9/16] pointer-events-none">
+                                {/* FIXED: Replaced <img> with Next.js <Image> */}
+                                <Image
                                     src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
                                     alt="Video Thumbnail"
+                                    width={256}
+                                    height={456}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -317,34 +321,28 @@ const VideoShowcase = ({ videos, onVideoClick }: { videos: VideoInfo[], onVideoC
     );
 };
 
-// --- UPDATED VideoModal ---
-// Now accepts a video object and conditionally changes aspect ratio
+// --- VideoModal ---
 const VideoModal = ({ videoInfo, onClose }: { videoInfo: VideoInfo | null, onClose: () => void }) => {
     
     if (!videoInfo) {
         return null;
     }
 
-    // YouTube embed URL with autoplay and related videos disabled
     const embedUrl = `https://www.youtube.com/embed/${videoInfo.id}?autoplay=1&rel=0`;
-    
-    // Check the type to decide the format
     const isShort = videoInfo.type === 'short';
 
     return (
         <div 
             className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={onClose} // Click background to close
+            onClick={onClose} 
         >
             <div 
                 className={cn(
                     "relative bg-black rounded-lg overflow-hidden w-full shadow-2xl shadow-orange-500/20",
-                    // CONDITIONAL STYLES:
                     isShort ? "max-w-[320px] aspect-[9/16]" : "max-w-lg aspect-video"
                 )}
-                onClick={(e) => e.stopPropagation()} // Prevent click inside from closing
+                onClick={(e) => e.stopPropagation()} 
             >
-                {/* Close Button */}
                 <Button 
                     variant="ghost" 
                     size="icon" 
@@ -372,7 +370,7 @@ const features = [
     {
         icon: <Video className="h-8 w-8 text-orange-500" />,
         title: '4K & 8K Editing',
-        description: 'We handle high-resolution footage to deliver stunning clarity and detail in your videos.',
+        description: ' We handle high-resolution footage to deliver stunningly crisp and detailed videos.',
     },
     {
         icon: <Film className="h-8 w-8 text-orange-500" />,
@@ -429,7 +427,6 @@ const ViewWork = () => (
                     </p>
                 </div>
                 <div className="mt-6">
-                    {/* IMPORTANT: Replace '#' with your actual Google Drive link */}
                     <a href="https://drive.google.com/drive/folders/1mHMJgOYCdEstCWCWiDy_7bdRpbzBx9xo?usp=sharing" target="_blank" rel="noopener noreferrer">
                         <Button size="lg" variant="default">
                             <FolderOpen className="mr-2 h-5 w-5" />
@@ -858,7 +855,7 @@ const Contact = () => {
               </div>
             </div>
             <div className="flex space-x-4 pt-4">
-              <a href="https://wa.me/+917905206328" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
+              <a href="https://wa.me/+919598822384" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><WhatsAppIcon className="w-8 h-8" /></a>
               <a href="https://www.instagram.com/visualise._co?igsh=azZzbXVrdWMxemJm" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><InstagramIcon className="w-8 h-8" /></a>
               <a href="https://t.me/Visualiseco" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-orange-500 transition-colors"><TelegramIcon className="w-8 h-8" /></a>
             </div>
@@ -952,18 +949,16 @@ export default function App() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   
-  // --- UPDATED: State now holds the full video object ---
   const [modalVideoInfo, setModalVideoInfo] = useState<VideoInfo | null>(null);
 
-  // --- THIS IS THE UPDATED PART ---
-  // I've used your links and added the 'type' to each one.
+  // --- YOUR UPDATED VIDEO LIST ---
   const featuredVideos: VideoInfo[] = [
     { id: "BEx5gHCM6kU", type: "short" },
     { id: "eiuRvVMz2bU", type: "short" },
     { id: "jW9od7_RrYI", type: "short" },
     { id: "mAVuitu1r2o", type: "short" },
     { id: "Nbsz-iz4org", type: "short" },
-    { id: "6hyumKPuXe8", type: "standard" } // This is your 16:9 video
+    { id: "6hyumKPuXe8", type: "standard" } 
   ];
 
   const handleVideoClick = (video: VideoInfo) => {
