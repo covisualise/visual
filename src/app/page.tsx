@@ -1,9 +1,9 @@
 "use client";
-import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-// NEW: Import Image from next/image
+import React, { FC, ReactNode, useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-// UPDATED: Removed unused 'Music', 'Volume2', and 'VolumeX'
-import { Video, Film, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+// UPDATED: Added new icons for background elements
+import { Video, Film, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone, ChevronLeft, ChevronRight, PenTool, Scissors, Edit } from 'lucide-react';
 import { motion } from "framer-motion";
 
 
@@ -174,7 +174,9 @@ const AnimatedSection = ({ children }: { children: ReactNode }) => {
 // Page Sections
 // -----------------------------------------------------------------------------
 
-const Navbar = ({ isVisible }: { isVisible: boolean }) => {
+// --- UPDATED Navbar ---
+// Removed 'isVisible' prop and conditional classes. It is now always visible.
+const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navLinks = [
         { href: '#features', label: 'Features' },
@@ -186,8 +188,7 @@ const Navbar = ({ isVisible }: { isVisible: boolean }) => {
 
     return (
         <nav className={cn(
-            'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-            isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+            'fixed top-0 left-0 right-0 z-50 transition-all duration-300 translate-y-0 opacity-100' // Always visible
         )}>
             <div className="container mx-auto flex items-center justify-between p-4 bg-black/50 backdrop-blur-lg border-b border-neutral-800">
                 <a href="#" className="flex items-center space-x-2">
@@ -208,7 +209,7 @@ const Navbar = ({ isVisible }: { isVisible: boolean }) => {
                 </div>
             </div>
             {isMenuOpen && (
-                <div className="md:hidden bg-black/80 backdrop-blur-lg">
+                <div className="md-hidden bg-black/80 backdrop-blur-lg">
                     <div className="container mx-auto flex flex-col items-center space-y-4 p-4">
                         {navLinks.map(link => (
                             <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="text-lg font-medium text-neutral-300 hover:text-orange-500 transition-colors">
@@ -221,6 +222,56 @@ const Navbar = ({ isVisible }: { isVisible: boolean }) => {
         </nav>
     );
 };
+
+// --- NEW BackgroundElements Component ---
+const BackgroundElements = () => {
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+      {/* Top-left element */}
+      <motion.div
+        className="absolute -top-16 -left-16 text-neutral-900"
+        animate={{ rotate: 360, opacity: [0, 0.2, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      >
+        <PenTool size={200} />
+      </motion.div>
+      
+      {/* Bottom-right element */}
+      <motion.div
+        className="absolute -bottom-24 -right-20 text-neutral-900"
+        animate={{ y: [0, -20, 0], opacity: [0.1, 0.3, 0.1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Scissors size={250} />
+      </motion.div>
+
+      {/* Center-ish element */}
+      <motion.div
+        className="absolute top-1/2 left-1/3 text-neutral-900"
+        animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.15, 0.05] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Edit size={300} />
+      </motion.div>
+
+      {/* Custom SVG Brush Stroke */}
+      <motion.svg
+        className="absolute top-1/4 right-0 text-neutral-900"
+        width="300"
+        height="200"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        animate={{ x: [0, 30, 0], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <path d="M10 50 Q 30 30, 50 50 T 90 50" stroke="currentColor" strokeWidth="2" fill="none" />
+        <path d="M10 60 Q 30 40, 50 60 T 90 60" stroke="currentColor" strokeWidth="2" fill="none" />
+      </motion.svg>
+    </div>
+  );
+};
+
 
 const Hero = () => {
     const words = ['Masterpiece', 'Video Editing', 'Graphics'];
@@ -235,14 +286,18 @@ const Hero = () => {
 
     return (
         <section className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
+            {/* --- ADDED BackgroundElements --- */}
+            <BackgroundElements />
             <div className="relative z-10 container mx-auto px-4 md:px-6">
                 <div className="max-w-4xl mx-auto animate-slide-in-up">
                     <div className="inline-block rounded-full bg-neutral-900/50 border border-neutral-700 px-3 py-1 text-sm text-orange-500 mb-4">
                         Professional Video Editing Service
                     </div>
-                    <h1 className="font-heading text-4xl font-bold tracking-tighter text-white sm:text-6xl md:text-7xl lg:text-8xl leading-tight glitch" data-text="Craft Your Cinematic Masterpiece">
+                    {/* UPDATED: Increased base text size from 4xl to 5xl */}
+                    <h1 className="font-heading text-5xl font-bold tracking-tighter text-white sm:text-6xl md:text-7xl lg:text-8xl leading-tight glitch" data-text="Craft Your Cinematic Masterpiece">
                         Craft Your Cinematic{' '}
-                        <span className="relative inline-block h-[1.2em] w-[12ch] overflow-hidden align-bottom">
+                        {/* UPDATED: Increased width from 12ch to 14ch to fit "Video Editing" */}
+                        <span className="relative inline-block h-[1.2em] w-[14ch] overflow-hidden align-bottom">
                             {words.map((word, index) => (
                                 <span
                                     key={word}
@@ -256,7 +311,8 @@ const Hero = () => {
                             ))}
                         </span>
                     </h1>
-                    <p className="mt-6 max-w-2xl mx-auto text-lg text-neutral-300 md:text-xl">
+                    {/* UPDATED: Increased base text size from lg to xl */}
+                    <p className="mt-6 max-w-2xl mx-auto text-xl text-neutral-300 md:text-xl">
                         From raw footage to breathtaking final cuts. We bring your vision to life with professional editing, color grading, and sound design.
                     </p>
                     <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
@@ -284,44 +340,110 @@ interface VideoInfo {
 
 const VideoShowcase = ({ videos, onVideoClick }: { videos: VideoInfo[], onVideoClick: (video: VideoInfo) => void }) => {
     
-    const duplicatedVideos = [...videos, ...videos];
+    // Setup the carousel
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
+    
+    // State to track the selected slide for the focus effect
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    // Click handlers for the new buttons
+    const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+    const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+    // Listen for the 'select' event
+    useEffect(() => {
+        if (!emblaApi) return;
+        
+        const onSelect = () => {
+            setSelectedIndex(emblaApi.selectedScrollSnap());
+        };
+
+        emblaApi.on('select', onSelect);
+        onSelect(); // Set initial selected index
+        
+        // --- AUTOPLAY ---
+        const timer = setInterval(() => {
+            emblaApi.scrollNext();
+        }, 2000); // Scrolls every 2 seconds (2000ms)
+
+        return () => {
+            emblaApi.off('select', onSelect);
+            clearInterval(timer); // Clear timer on unmount
+        };
+    }, [emblaApi]);
 
     return (
         <section id="video-showcase" className="w-full py-12 md:py-24 text-white">
             <div className="container mx-auto flex flex-col items-center justify-center space-y-4 text-center px-4 md:px-6 mb-12">
                 <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Featured Reels</h2>
-                {/* FIXED: Replaced ' with &apos; */}
                 <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed">
                     Here&apos;s a glimpse of the engaging content we produce.
                 </p>
             </div>
-            <div className="w-full overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-                <div className="flex animate-marquee-horizontal">
-                    {duplicatedVideos.map((video, index) => (
-                        <button
-                            key={index}
-                            className="flex-shrink-0 w-64 mx-4 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-xl"
-                            onClick={() => onVideoClick(video)}
-                        >
-                            <div className="relative rounded-xl overflow-hidden border-2 border-neutral-800 shadow-lg aspect-[9/16] pointer-events-none">
-                                {/* FIXED: Replaced <img> with Next.js <Image> */}
-                                <Image
-                                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                                    alt="Video Thumbnail"
-                                    width={256}
-                                    height={456}
-                                    className="w-full h-full object-cover"
-                                />
+            
+            {/* Wrapper to hold carousel and buttons */}
+            <div className="relative container mx-auto">
+                {/* The Carousel Viewport */}
+                <div className="embla" ref={emblaRef}>
+                    {/* The Carousel Container */}
+                    <div className="embla__container">
+                        {/* Map over your videos */}
+                        {videos.map((video, index) => (
+                            <div
+                                key={index}
+                                className="embla__slide"
+                            >
+                                <button
+                                    className={cn(
+                                        "focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-xl transition-all duration-300 ease-in-out w-full h-full",
+                                        // This is the focus/blur effect you wanted:
+                                        index === selectedIndex
+                                            ? "opacity-100 scale-100" // Active slide
+                                            : "opacity-50 scale-90 blur-sm" // Inactive slides
+                                    )}
+                                    onClick={() => onVideoClick(video)}
+                                >
+                                    <div className="relative rounded-xl overflow-hidden border-2 border-neutral-800 shadow-lg aspect-[9/16] pointer-events-none">
+                                        <Image
+                                            src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
+                                            alt="Video Thumbnail"
+                                            width={256}
+                                            height={456}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </button>
                             </div>
-                        </button>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+
+                {/* Left Arrow Button */}
+                <Button
+                    variant="outline"
+                    size="icon"
+                    // UPDATED: Added z-30
+                    className="absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-30 rounded-full bg-black/50 border-neutral-700 h-12 w-12 hidden md:flex"
+                    onClick={scrollPrev}
+                >
+                    <ChevronLeft className="h-6 w-6" />
+                </Button>
+                {/* Right Arrow Button */}
+                <Button
+                    variant="outline"
+                    size="icon"
+                    // UPDATED: Added z-30
+                    className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-30 rounded-full bg-black/50 border-neutral-700 h-12 w-12 hidden md:flex"
+                    onClick={scrollNext}
+                >
+                    <ChevronRight className="h-6 w-6" />
+                </Button>
             </div>
         </section>
     );
 };
 
-// --- VideoModal ---
+// --- VideoModal (No changes) ---
 const VideoModal = ({ videoInfo, onClose }: { videoInfo: VideoInfo | null, onClose: () => void }) => {
     
     if (!videoInfo) {
@@ -946,12 +1068,11 @@ const Footer = () => {
 // -----------------------------------------------------------------------------
 
 export default function App() {
-  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+  // --- UPDATED: Removed isNavbarVisible state ---
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   
   const [modalVideoInfo, setModalVideoInfo] = useState<VideoInfo | null>(null);
 
-  // --- YOUR UPDATED VIDEO LIST ---
   const featuredVideos: VideoInfo[] = [
     { id: "BEx5gHCM6kU", type: "short" },
     { id: "eiuRvVMz2bU", type: "short" },
@@ -970,23 +1091,14 @@ export default function App() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.9) {
-        setIsNavbarVisible(true);
-      } else {
-        setIsNavbarVisible(false);
-      }
-    };
-    
+    // --- UPDATED: Removed handleScroll logic ---
     const handleMouseMove = (e: MouseEvent) => {
         setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-        window.removeEventListener('scroll', handleScroll);
         window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -1020,14 +1132,7 @@ export default function App() {
             animation: marquee-down 30s linear infinite;
           }
           
-          @keyframes marquee-horizontal {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-          }
-          .animate-marquee-horizontal {
-            animation: marquee-horizontal 40s linear infinite;
-          }
-
+          /* Removed marquee-horizontal */
 
           @keyframes slide-in-up {
             from {
@@ -1083,9 +1188,36 @@ export default function App() {
             /* ... more steps ... */
             100% { clip: rect(62px, 9999px, 88px, 0); }
           }
+
+          /* === UPDATED CAROUSEL STYLES === */
+          .embla {
+            overflow: hidden;
+          }
+          .embla__container {
+            display: flex;
+            margin-left: -1rem; 
+          }
+          .embla__slide {
+            /* Mobile: 70% width to show one slide centered */
+            flex: 0 0 70%;
+            min-width: 0;
+            padding-left: 1rem;
+            position: relative;
+          }
+
+          /* Tablet & Desktop: 33.3% width to show 3 slides, forcing center */
+          @media (min-width: 640px) {
+            .embla__slide {
+              flex: 0 0 33.3333%;
+            }
+          
+          /* On screens larger than 'lg' (1024px), show 5 slides */
+          @media (min-width: 1024px) {
+          }
         `}
       </style>
-      <Navbar isVisible={isNavbarVisible} />
+      {/* --- UPDATED: Removed isVisible prop --- */}
+      <Navbar />
       <main className="bg-black antialiased">
         <Hero />
         <AnimatedSection>
