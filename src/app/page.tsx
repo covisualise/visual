@@ -3,7 +3,7 @@ import React, { FC, ReactNode, useState, useEffect, useRef, useCallback } from '
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 // UPDATED: Added new icons for background elements
-import { Video, Film, Zap, CheckCircle, Globe, Briefcase, FolderOpen, Award, Menu, X, Mail, Phone, ChevronLeft, ChevronRight, PenTool, Scissors, Edit } from 'lucide-react';
+import { Video, Film, Zap, CheckCircle, Globe, Briefcase, Award, Menu, X, Mail, Phone, ChevronLeft, ChevronRight, PenTool, Scissors, Edit } from 'lucide-react';
 import { motion } from "framer-motion";
 
 
@@ -129,6 +129,192 @@ const TelegramIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 2L11 13L2 9L22 2zM11 13L22 22L11 13z"></path></svg>
 );
 
+// Animated SVG Logo using framer-motion
+const AnimatedLogo = () => (
+  <motion.div
+    initial={{ rotate: 0, scale: 1 }}
+    animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.06, 1.06, 1] }}
+    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+    className="text-orange-500"
+    aria-hidden="true"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M7 12.5C8.5 9 10 8 12 8c2 0 3.5 1 5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </motion.div>
+);
+
+// --- NEW About Section ---
+const About = () => (
+  <section id="about" className="w-full py-16 md:py-20 text-white bg-gradient-to-b from-black via-neutral-950 to-black">
+    <div className="container mx-auto px-4 md:px-6">
+      {/* Company About */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="grid gap-10 md:grid-cols-2 items-center mb-16"
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <div className="inline-block rounded-full bg-orange-600/20 border border-orange-500/30 px-3 py-1 text-sm text-orange-400 mb-4">
+            Who We Are
+          </div>
+          <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
+            About Visualise.Co
+          </h2>
+          <p className="mt-4 text-neutral-300 text-base md:text-lg leading-relaxed">
+            We craft cinematic stories from raw footage — blending sharp editing, color grading and motion design to help your content stand out. Our team focuses on clarity, emotion and impact while respecting your brand voice.
+          </p>
+          <ul className="mt-6 space-y-3">
+            <motion.li
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+              className="flex items-start gap-3 text-neutral-300 group hover:text-white transition-colors"
+            >
+              <CheckCircle className="text-orange-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" size={18} />
+              <span>Fast turnarounds without compromising quality.</span>
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              viewport={{ once: true }}
+              className="flex items-start gap-3 text-neutral-300 group hover:text-white transition-colors"
+            >
+              <Globe className="text-orange-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" size={18} />
+              <span>Clients worldwide — remote collaboration friendly.</span>
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              viewport={{ once: true }}
+              className="flex items-start gap-3 text-neutral-300 group hover:text-white transition-colors"
+            >
+              <Zap className="text-orange-500 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" size={18} />
+              <span>Motion graphics, VFX and bespoke visuals.</span>
+            </motion.li>
+          </ul>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-6"
+          >
+            <a href="#contact">
+              <Button size="lg" className="group">
+                Work With Us
+                <motion.span
+                  className="ml-2 inline-block"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </Button>
+            </a>
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="rounded-xl overflow-hidden border border-neutral-800 shadow-2xl shadow-orange-500/10 hover:shadow-orange-500/20 transition-shadow duration-500">
+            <Image src="/images/about-hero.svg" alt="About Visualise.Co" width={1200} height={800} className="w-full h-auto" />
+          </div>
+          {/* Decorative gradient */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-xl opacity-0 blur-2xl group-hover:opacity-20 transition-opacity duration-500 -z-10" />
+        </motion.div>
+      </motion.div>
+
+      {/* Founder Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="grid gap-10 md:grid-cols-2 items-center"
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="order-2 md:order-1 relative group"
+        >
+          <div className="rounded-xl overflow-hidden border border-neutral-800 shadow-2xl shadow-orange-500/10 hover:shadow-orange-500/30 transition-all duration-500 bg-neutral-900 aspect-square max-w-sm mx-auto flex items-center justify-center relative">
+            {/* Animated gradient background */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-br from-orange-600/20 to-orange-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              animate={{
+                backgroundPosition: ['0% 0%', '100% 100%'],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                repeatType: 'reverse',
+              }}
+            />
+            {/* Avatar */}
+            <Image 
+              src="/images/Ankur.jpeg" 
+              alt="Ankur Yadav - Founder" 
+              width={400} 
+              height={400} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="order-1 md:order-2"
+        >
+          <div className="inline-block rounded-full bg-orange-600/20 border border-orange-500/30 px-3 py-1 text-sm text-orange-400 mb-4">
+            Meet the Founder
+          </div>
+          <h3 className="font-heading text-2xl font-bold tracking-tighter sm:text-4xl bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
+            Ankur Yadav
+          </h3>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-4 text-neutral-300 text-base md:text-lg leading-relaxed"
+          >
+            Ankur Yadav is a passionate video editor and motion designer with over three years of hands-on experience transforming raw footage into compelling visual stories. Starting his journey editing reels for emerging creators, he quickly developed a reputation for cinematic color grading, razor-sharp cuts and innovative motion graphics.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-3 text-neutral-400 leading-relaxed"
+          >
+            Driven by a love for storytelling and technology, Ankur founded Visualise.Co to bridge the gap between ambitious creators and world-class post-production. When he&apos;s not behind the timeline, you&apos;ll find him exploring new editing techniques, mentoring aspiring editors, or gaming late into the night.
+          </motion.p>
+        </motion.div>
+      </motion.div>
+    </div>
+  </section>
+);
+
 // Animation Wrapper Component
 const AnimatedSection = ({ children }: { children: ReactNode }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -179,11 +365,11 @@ const AnimatedSection = ({ children }: { children: ReactNode }) => {
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navLinks = [
-        { href: '#features', label: 'Features' },
-        { href: '#portfolio', label: 'Portfolio' },
-        { href: '#pricing', label: 'Pricing' },
-        { href: '#experience', label: 'Experience' },
-        { href: '#contact', label: 'Contact' },
+    { href: '#features', label: 'Features' },
+    { href: '#about', label: 'About' },
+    { href: '#pricing', label: 'Pricing' },
+    { href: '#experience', label: 'Experience' },
+    { href: '#contact', label: 'Contact' },
     ];
 
     return (
@@ -192,8 +378,8 @@ const Navbar = () => {
         )}>
             <div className="container mx-auto flex items-center justify-between p-4 bg-black/50 backdrop-blur-lg border-b border-neutral-800">
                 <a href="#" className="flex items-center space-x-2">
-                    <Film className="h-6 w-6 text-orange-500" />
-                    <span className="font-heading font-bold text-xl text-white">Visualise.Co</span>
+                  <AnimatedLogo />
+                  <span className="font-heading font-bold text-xl text-white">Visualise.Co</span>
                 </a>
                 <div className="hidden md:flex items-center space-x-6">
                     {navLinks.map(link => (
@@ -319,7 +505,7 @@ const Hero = () => {
                         <a href="#features">
                             <Button size="lg">Get Started Now</Button>
                         </a>
-                        <a href="#portfolio">
+                        <a href="#about">
                             <Button size="lg" variant="outline">
                                 <Film className="mr-2 h-5 w-5" />
                                 View Our Work
@@ -538,28 +724,7 @@ const features = [
   );
 };
 
-const ViewWork = () => (
-    <section id="portfolio" className="w-full py-12 md:py-24 lg:py-32 text-white">
-        <div className="container mx-auto px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="space-y-2">
-                    <h2 className="font-heading text-3xl font-bold tracking-tighter sm:text-5xl">Explore Our Portfolio</h2>
-                    <p className="max-w-[900px] text-neutral-300 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                        Take a look at some of the stunning videos we&rsquo;ve crafted for our clients.
-                    </p>
-                </div>
-                <div className="mt-6">
-                    <a href="https://drive.google.com/drive/folders/1mHMJgOYCdEstCWCWiDy_7bdRpbzBx9xo?usp=sharing" target="_blank" rel="noopener noreferrer">
-                        <Button size="lg" variant="default">
-                            <FolderOpen className="mr-2 h-5 w-5" />
-                            View on Google Drive
-                        </Button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-);
+// The previous portfolio section was intentionally removed per request.
 
 const Pricing = () => {
     const plans = [
@@ -656,6 +821,7 @@ const Experience = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const currentRef = sectionRef.current;
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -666,13 +832,13 @@ const Experience = () => {
             { threshold: 0.1 }
         );
 
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
+        if (currentRef) {
+            observer.observe(currentRef);
         }
 
         return () => {
-            if (sectionRef.current) {
-                observer.unobserve(sectionRef.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
     }, []);
@@ -1103,6 +1269,31 @@ export default function App() {
     };
   }, []);
 
+  // Initialize Lenis for smooth scrolling
+  useEffect(() => {
+    let rafId: number;
+    let lenis: InstanceType<typeof import('lenis').default> | null = null;
+
+    import('lenis').then((Lenis) => {
+      lenis = new Lenis.default({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+
+      function raf(time: number) {
+        lenis?.raf(time);
+        rafId = requestAnimationFrame(raf);
+      }
+
+      rafId = requestAnimationFrame(raf);
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis?.destroy();
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -1220,6 +1411,7 @@ export default function App() {
       <Navbar />
       <main className="bg-black antialiased">
         <Hero />
+        <AnimatedSection><About /></AnimatedSection>
         <AnimatedSection>
             <VideoShowcase 
                 videos={featuredVideos} 
@@ -1227,7 +1419,6 @@ export default function App() {
             />
         </AnimatedSection>
         <AnimatedSection><Features /></AnimatedSection>
-        <AnimatedSection><ViewWork /></AnimatedSection>
         <AnimatedSection><Pricing /></AnimatedSection>
         <AnimatedSection><Experience /></AnimatedSection>
         <AnimatedSection><Clients /></AnimatedSection>
